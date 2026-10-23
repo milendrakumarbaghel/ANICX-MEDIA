@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Netlify form blueprint</title>
+  </head>
+  <body>
+    <!--
+      Netlify Forms blueprint. Netlify detects forms by parsing built HTML, so this
+      static file registers the two React-rendered forms at deploy time.
+
+      Keep form names and field names in sync with:
+        - src/lib/forms.ts                       (FORM_NAMES, HONEYPOT_FIELD)
+        - src/components/forms/ProjectEnquiryForm.tsx
+        - src/components/forms/CourseEnquiryForm.tsx
+      Adding a field in React? Add an input with the same name here too,
+      otherwise Netlify silently drops it.
+    -->
+    <form name="project-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="project-enquiry" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="service" />
+      <input type="text" name="budget" />
+      <input type="text" name="timeline" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="course-enquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="course-enquiry" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="course" />
+      <textarea name="message"></textarea>
+    </form>
+  </body>
+</html>

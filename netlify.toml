@@ -1,0 +1,38 @@
+# Netlify configuration for ANICX MEDIA.
+# Every public route is prerendered to its own index.html, and unknown URLs are
+# served dist/404.html with a real 404 status (Netlify does this automatically),
+# so no catch-all SPA rewrite is needed. Routes work when opened directly or refreshed.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Deploy previews and branch deploys show draft content with "Draft" badges so
+# the client can review it. Production never shows drafts.
+[context.deploy-preview.environment]
+  VITE_SHOW_DRAFTS = "true"
+
+[context.branch-deploy.environment]
+  VITE_SHOW_DRAFTS = "true"
+
+# Hashed build assets never change: cache them for a year.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"

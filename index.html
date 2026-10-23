@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--
+      Marks the document as JS-capable so the hero intro can start from its hidden
+      state without a flash. If the app has not booted within 3.5s (slow network or
+      a script error), `js-fallback` reveals everything so content is never stuck hidden.
+    -->
+    <script>
+      document.documentElement.classList.add('js');
+      setTimeout(function () {
+        if (!window.__ANICX_READY__) document.documentElement.classList.add('js-fallback');
+      }, 3500);
+    </script>
+    <title>ANICX MEDIA — Animation Studio & Creative Academy</title>
+    <meta name="description" content="ANICX MEDIA is an animation studio and creative academy in Seoni, Madhya Pradesh, India." />
+    <!--app-head-->
+  </head>
+  <body>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
