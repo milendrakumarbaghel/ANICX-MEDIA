@@ -9,7 +9,7 @@ export interface ResolvedImage {
 }
 
 /**
- * Thumbnail for a YouTube video. Uses the optimised local WebP copies in
+ * Thumbnail for a YouTube video. Uses the optimised local WebP copies (640/960/1280w) in
  * /public/media/work when available (see scripts/fetch-thumbnails.sh),
  * otherwise falls back to YouTube's always-available hqdefault image.
  */
@@ -17,7 +17,7 @@ export function youtubeThumbnail(youtubeId: string): ResolvedImage {
   if (localThumbnails.has(youtubeId)) {
     return {
       src: `/media/work/${youtubeId}-1280.webp`,
-      srcSet: `/media/work/${youtubeId}-640.webp 640w, /media/work/${youtubeId}-1280.webp 1280w`,
+      srcSet: `/media/work/${youtubeId}-640.webp 640w, /media/work/${youtubeId}-960.webp 960w, /media/work/${youtubeId}-1280.webp 1280w`,
       width: 1280,
       height: 720,
     }

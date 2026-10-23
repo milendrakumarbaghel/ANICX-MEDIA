@@ -64,7 +64,7 @@ export default function PortfolioPage() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
-                <WorkCard item={item} sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw" />
+                <WorkCard item={item} headingLevel="h2" sizes="(min-width: 1280px) 30vw, (min-width: 768px) 46vw, 100vw" />
               </m.li>
             ))}
           </AnimatePresence>

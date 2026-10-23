@@ -80,7 +80,10 @@ export const courses: Course[] = [
 ]
 
 /**
- * Style references supplied by the client (third-party channels).
+ * Style references supplied by the client (third-party channels):
+ *   https://www.youtube.com/@professorofhow  (Professor Of How)
+ *   https://www.youtube.com/@zackdfilms      (Zack D. Films)
+ *   https://www.youtube.com/@zeckfelms       (Zeck Felms)
  * These are NOT ANICX MEDIA work and are always shown with a credit.
  * Add the one or two approved videos by setting `youtubeId`, `title`
  * and status: 'approved'.

@@ -1,6 +1,6 @@
 /**
  * YouTube IDs that have optimised local thumbnails in /public/media/work
- * ({id}-640.webp and {id}-1280.webp).
+ * ({id}-640.webp, {id}-960.webp and {id}-1280.webp).
  *
  * Generate them with:  sh scripts/fetch-thumbnails.sh <youtubeId> [...more ids]
  * then add the IDs here. Videos not listed fall back to YouTube's thumbnail CDN.

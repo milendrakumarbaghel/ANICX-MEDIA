@@ -23,7 +23,7 @@ export function Hero() {
   const image = spotlight?.youtubeId ? youtubeThumbnail(spotlight.youtubeId) : null
 
   return (
-    <section ref={ref} aria-labelledby="hero-title" className="relative pb-10 md:pb-16">
+    <section ref={ref} aria-labelledby="hero-title" data-intro-root className="relative pb-10 md:pb-16">
       <div className="shell pt-10 sm:pt-14 lg:pt-20">
         <p className="eyebrow flex items-center gap-2.5" data-intro>
           <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />

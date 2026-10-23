@@ -37,9 +37,12 @@ export const MEDIA = {
 } as const
 
 /**
- * Reveal start position. clamp() keeps triggers near the end of short pages
- * reachable, so content can never get stuck in its hidden "from" state.
+ * Reveal start position. Content already in view on load starts above this
+ * line, so it reveals immediately. Every page ends with the footer (taller
+ * than the remaining 12%), so the last revealed block can always reach it.
+ * (Avoid clamp() here: it pins in-view triggers to exactly 0 and they would
+ * wait for the first scroll.)
  */
-export const REVEAL_START = 'clamp(top 88%)'
+export const REVEAL_START = 'top 88%'
 
 export { gsap, ScrollTrigger, useGSAP }

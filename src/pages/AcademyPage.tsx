@@ -52,7 +52,10 @@ export default function AcademyPage() {
       />
 
       <div ref={ref}>
-        <section aria-label="Why learn with us" className="shell pb-20 md:pb-28">
+        <section aria-labelledby="benefits-title" className="shell pb-20 md:pb-28">
+          <h2 id="benefits-title" className="sr-only">
+            Why learn with us
+          </h2>
           <AcademyBenefits tone="mist" />
         </section>
 

@@ -34,7 +34,8 @@ function preloadLinks(moduleId) {
   visit(moduleId)
   const entryFile = Object.values(manifest).find((chunk) => chunk.isEntry)?.file
   return [...seen]
-    .filter((file) => file !== entryFile)
+    // Skip the entry and anything Vite already preloads in the template.
+    .filter((file) => file !== entryFile && !template.includes(`/${file}"`))
     .map((file) => `<link rel="modulepreload" crossorigin href="/${file}">`)
 }
 

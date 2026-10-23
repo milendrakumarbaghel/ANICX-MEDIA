@@ -390,12 +390,21 @@
 }
 
 /* ------------------------------------------------------------------------- */
-/* Intro state for the hero. Hidden only when JS is present and motion is     */
-/* allowed; `js-fallback` (see index.html) guarantees it never stays hidden. */
+/* First-load intro state for the homepage hero ([data-intro-root]). Applied */
+/* only when JS is present and motion is allowed; `js-fallback` (index.html) */
+/* guarantees it never stays hidden.                                         */
 /* ------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .js:not(.js-fallback) [data-intro] {
+  .js:not(.js-fallback) [data-intro-root] [data-intro]:not([data-intro='image']) {
     opacity: 0;
+  }
+  /* Images start visible but masked, so they paint immediately (fast LCP);
+     the GSAP intro animates from exactly this state. */
+  .js:not(.js-fallback) [data-intro-root] [data-intro='image'] {
+    clip-path: inset(10% 6% 10% 6% round 32px);
+  }
+  .js:not(.js-fallback) [data-intro-root] [data-intro='image'] img {
+    transform: scale(1.16);
   }
 }
 
