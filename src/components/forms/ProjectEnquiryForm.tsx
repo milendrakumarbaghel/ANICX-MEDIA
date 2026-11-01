@@ -1,144 +1,189 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router'
-import { visibleServices } from '../../lib/content'
+import { whatsappHref } from '../../data/siteConfig'
 import {
-  FORM_NAMES,
   budgetOptions,
+  buildProjectWhatsAppMessage,
+  deadlineOptions,
   projectEnquirySchema,
-  timelineOptions,
+  serviceChoices,
   zodResolver,
   type ProjectEnquiryValues,
 } from '../../lib/forms'
 import { TextAreaField, TextField, SelectField } from './FormField'
-import { FormError, FormSuccess, NetlifyHiddenFields, SubmitButton } from './FormParts'
-import { useNetlifySubmit } from './useNetlifySubmit'
+import { WhatsAppIcon } from '../ui/BrandIcons'
 
-const serviceOptions = [
-  ...visibleServices.map((service) => ({ value: service.title, label: service.title })),
-  { value: 'Something else', label: 'Something else' },
-]
+const serviceOptions = serviceChoices.map((choice) => ({ value: choice, label: choice }))
 const toOptions = (values: readonly string[]) => values.map((value) => ({ value, label: value }))
 
 interface ProjectEnquiryFormProps {
-  /** Service slug to preselect, e.g. from /contact?service=3d-animation. */
   presetService?: string | null
 }
 
+const SERVICE_SLUG_MAP: Record<string, string> = {
+  '3d-animation': '3D Animation',
+  '2d-animation': '2D Animation',
+  'animation': '3D Animation',
+  'website-development': 'Website Development',
+  'web-development': 'Website Development',
+  'video-editing': 'Video Editing / Reels',
+  'video-editing-reels': 'Video Editing / Reels',
+  'social-media-ads': 'Social Media / Ads Availability',
+  'digital-marketing': 'Social Media / Ads Availability',
+}
+
 export function ProjectEnquiryForm({ presetService }: ProjectEnquiryFormProps) {
-  const { status, setStatus, submit, honeypotRef } = useNetlifySubmit(FORM_NAMES.project)
+  const [openedWhatsApp, setOpenedWhatsApp] = useState(false)
   const {
     register,
     handleSubmit,
-    reset,
     setValue,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<ProjectEnquiryValues>({
     resolver: zodResolver(projectEnquirySchema),
     mode: 'onTouched',
-    defaultValues: { name: '', email: '', phone: '', service: '', budget: '', timeline: '', message: '' },
+    defaultValues: {
+      name: '',
+      service: '',
+      businessName: '',
+      budget: '',
+      deadline: '',
+      message: '',
+      referenceUrl: '',
+    },
   })
 
   useEffect(() => {
-    const service = visibleServices.find((s) => s.slug === presetService)
-    if (service) setValue('service', service.title)
+    if (presetService) {
+      const mapped = SERVICE_SLUG_MAP[presetService]
+      if (mapped) setValue('service', mapped)
+    }
   }, [presetService, setValue])
 
-  if (status === 'success') {
-    return (
-      <FormSuccess
-        title="Thank you, your enquiry is on its way."
-        message="We’ve received your project details and will get back to you soon."
-        onReset={() => {
-          reset()
-          setStatus('idle')
-        }}
-      />
-    )
+  const onSubmit = (values: ProjectEnquiryValues) => {
+    const message = buildProjectWhatsAppMessage(values)
+    const url = whatsappHref(message)
+    setOpenedWhatsApp(true)
+    // Open WhatsApp in new tab / application
+    window.open(url, '_blank', 'noopener,noreferrer')
   }
 
   return (
     <form
-      name={FORM_NAMES.project}
-      method="POST"
       noValidate
-      onSubmit={handleSubmit(async (values) => {
-        if (await submit(values)) reset()
-      })}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6"
       aria-describedby="project-form-note"
     >
-      <NetlifyHiddenFields formName={FORM_NAMES.project} honeypotRef={honeypotRef} />
       <p id="project-form-note" className="text-sm text-muted">
         Fields marked <span className="text-accent-ink">*</span> are required.
       </p>
 
       <div className="grid gap-6 sm:grid-cols-2">
-        <TextField id="project-name" label="Full name" required autoComplete="name" registration={register('name')} error={errors.name} />
         <TextField
-          id="project-email"
-          label="Email"
-          type="email"
+          id="project-name"
+          label="Full name"
           required
-          autoComplete="email"
-          inputMode="email"
-          registration={register('email')}
-          error={errors.email}
-        />
-        <TextField
-          id="project-phone"
-          label="Phone number"
-          type="tel"
-          required
-          autoComplete="tel"
-          inputMode="tel"
-          hint="Include your country code if outside India."
-          registration={register('phone')}
-          error={errors.phone}
+          autoComplete="name"
+          placeholder="e.g. Rahul Sharma"
+          registration={register('name')}
+          error={errors.name}
         />
         <SelectField
           id="project-service"
-          label="Interested service"
+          label="Service"
           required
           options={serviceOptions}
+          placeholder="Select a service"
           registration={register('service')}
           error={errors.service}
         />
+        <TextField
+          id="project-business"
+          label="Business / Channel name (Optional)"
+          placeholder="e.g. My Brand or YouTube Channel"
+          registration={register('businessName')}
+          error={errors.businessName}
+        />
         <SelectField
           id="project-budget"
-          label="Budget range"
+          label="Budget range (Optional)"
           options={toOptions(budgetOptions)}
-          placeholder="Select a range"
+          placeholder="Select a range or Need Guidance"
           registration={register('budget')}
           error={errors.budget}
         />
         <SelectField
-          id="project-timeline"
-          label="Project timeline"
-          options={toOptions(timelineOptions)}
-          placeholder="Select a timeline"
-          registration={register('timeline')}
-          error={errors.timeline}
+          id="project-deadline"
+          label="Preferred deadline (Optional)"
+          options={toOptions(deadlineOptions)}
+          placeholder="Select a timeline or Flexible"
+          registration={register('deadline')}
+          error={errors.deadline}
+        />
+        <TextField
+          id="project-reference"
+          label="Reference link or video (Optional)"
+          type="url"
+          placeholder="https://youtube.com/..."
+          registration={register('referenceUrl')}
+          error={errors.referenceUrl}
         />
       </div>
 
       <TextAreaField
         id="project-message"
-        label="Project description"
+        label="Project details"
         required
-        placeholder="Tell us about your idea, audience, style references and where the video will be used."
+        placeholder="Briefly describe what you want to create (style, duration, key characters or pages needed)."
         registration={register('message')}
         error={errors.message}
       />
 
-      {status === 'error' && <FormError />}
-
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <SubmitButton submitting={isSubmitting} label="Send project enquiry" />
-        <p className="text-xs text-muted">
-          By sending this form you agree to our <Link to="/privacy-policy" className="underline">privacy policy</Link>.
+      <div className="rounded-xl border border-line bg-mist p-4 text-sm text-muted">
+        <p className="font-medium text-ink">
+          Your enquiry will open in WhatsApp. Please send the message there to complete it.
+        </p>
+        <p className="mt-1 text-xs">
+          Your details are retained in the form if you return to this window.
         </p>
       </div>
+
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="inline-flex items-center justify-center gap-3 rounded-full bg-[#1f7a4d] px-7 py-3.5 text-base font-semibold text-paper shadow-md transition-transform hover:-translate-y-0.5 hover:bg-[#1a6640] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1f7a4d]"
+        >
+          <WhatsAppIcon size={20} />
+          <span>Continue on WhatsApp</span>
+        </button>
+
+        <p className="text-xs text-muted">
+          By continuing you agree to our{' '}
+          <Link to="/privacy-policy" className="underline">
+            privacy policy
+          </Link>
+          .
+        </p>
+      </div>
+
+      {openedWhatsApp && (
+        <p className="text-sm text-muted" aria-live="polite">
+          WhatsApp opened in a new tab. If it did not open automatically,{' '}
+          <a
+            href={whatsappHref(buildProjectWhatsAppMessage(getValues()))}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-ink underline"
+          >
+            click here to continue on WhatsApp
+          </a>
+          .
+        </p>
+      )}
     </form>
   )
 }

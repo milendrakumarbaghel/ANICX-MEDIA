@@ -1,107 +1,117 @@
-# Handover: ANICX MEDIA website
+# Developer Handover: ANICX MEDIA Website
 
-## Content still needed from ANICX MEDIA
+## 1. Confirmed Business Details & Shared Configuration
 
-| # | Item | Where it goes | Current state |
-| --- | --- | --- | --- |
-| 1 | **Logo** (SVG preferred) + favicon | `siteConfig.logo.src`, `public/favicon.svg` | Typographic "ANICX MEDIA" wordmark placeholder |
-| 2 | **Business email** | `siteConfig.contact.email` | Hidden |
-| 3 | **Phone number** | `siteConfig.contact.phone` | Hidden |
-| 4 | **WhatsApp business number** | `siteConfig.contact.whatsapp` | WhatsApp button disabled (no fake number) |
-| 5 | **Course details**: names, overviews, syllabus, format, fees, durations, schedules | `src/data/courses.ts` | 3 draft outlines, **not shown in production**. Production Academy shows benefits, FAQ and the enquiry form. |
-| 6 | **Academy FAQ answers** (experience needed, software/computer) | `academyFaq` | 2 approved, 2 drafts |
-| 7 | **Sample lesson videos** | `courses[].sampleLessons` | Section hidden until added |
-| 8 | **1–2 approved reference videos** (Professor Of How / Zack D. Films / Zeck Felms) | `referenceVideos` | 2 empty draft slots |
-| 9 | **Dhamal Nagar**: synopsis, poster, trailer, characters, episode links | `originalProjects` | Draft; page not published |
-| 10 | **Testimonials** (genuine, with permission) | `src/data/testimonials.ts` | Section hidden |
-| 11 | **Confirmation of content ownership** (see below) | n/a | **Needs a decision before launch** |
-| 12 | **Custom domain** | Netlify + `VITE_SITE_URL` | Not set |
-| 13 | **Brand accent colour** matching the final logo | `siteConfig.brand.colors` | `#C7A15A` gold placeholder |
-| 14 | **Review of written copy**: services descriptions, studio intro, workflow, budget ranges, privacy policy | `src/data/*`, privacy page | Written to be factual and non-specific. Please confirm wording. |
-| 15 | Optional: approved photos (studio, team, classes), project posters, character art | `public/media/…` | Only video stills used today |
+All business facts are centralized in [`src/data/siteConfig.ts`](file:///Users/milendrakumarbaghel/Documents/projects/anicx-media/src/data/siteConfig.ts):
 
-### ⚠ Content ownership: please confirm
-
-The portfolio and "Original Projects" use the two YouTube channels supplied as ANICX MEDIA portfolio sources: **Raaz Wali Raat** and **Panga Toonz**. Titles and descriptions restate what the channels publish.
-
-Please check two points before launch:
-
-- **Panga Toonz credit:** the channel description states that its characters and content are owned by *"Abhishek Rai & Abhishek Animations PVT LIMITED"*. Confirm that ANICX MEDIA may present this as its own production or original series. If not, change the wording, or move it to portfolio-only with a credit line.
-- **Raaz Wali Raat contact:** the channel lists a personal contact email that isn't used anywhere on this site.
-
-A public video titled "PINKI CHIRKUT (dhamal nagar) | abhishek animations" exists on a third-party channel, which suggests Dhamal Nagar may be connected to the Panga Toonz world. Nothing about it was assumed; please supply the official details.
-
----
-
-## Netlify Forms
-
-The site has two forms:
-
-- **`project-enquiry`:** name, email, phone, service, budget, timeline, message
-- **`course-enquiry`:** name, email, phone, course, message
-
-They're submitted from React with URL-encoded `fetch` POSTs (never JSON). Both have a hidden `form-name` field and a `bot-field` honeypot. Netlify discovers them through the static blueprint `public/__forms.html`.
-
-### Setup (one time)
-
-1. **Enable form detection:** in Netlify, go to **Site configuration → Forms → Enable form detection**. New sites have it switched off.
-2. **Redeploy:** go to **Deploys → Trigger deploy → Deploy site**. After the deploy, **Forms** should list `project-enquiry` and `course-enquiry`.
-3. **Test:** send one test enquiry from each form on the live site (or a deploy preview). Confirm both appear under **Forms → (form name) → Verified submissions**.
-
-### Email notifications
-
-1. Go to **Site configuration → Notifications → Emails and webhooks → Form submission notifications → Add notification → Email notification**.
-2. Choose the event "New form submission", then select **one form** (or "Any form") and enter the studio's email.
-3. Repeat for the second form if you want separate inboxes (e.g. projects vs academy).
-4. Check the spam folder for the first notification and mark it "Not spam".
-
-### Spam protection
-
-- **Honeypot:** hidden `bot-field`, checked in the browser and by Netlify.
-- **Netlify's built-in spam filtering:** suspected spam goes to **Forms → Spam submissions**. Check it occasionally.
-- **More protection, if spam becomes a problem:** add `data-netlify-recaptcha="true"` to the forms. This needs a reCAPTCHA element added to both the blueprint and the React forms.
-
-### Plan limits
-
-- **Credit-based plans** (every Netlify account created since September 2025): as of **14 April 2026**, Netlify made **form submissions free and unlimited**, including the Free plan ([Netlify changelog](https://www.netlify.com/changelog/2026-04-14-pricing-updates-april-2026.md)). The Free plan still has a monthly credit allowance for bandwidth, compute and web requests. A small, static brochure site like this normally stays well within it, but check **Team → Billing → Usage** after launch.
-- **Legacy plans** (older accounts on legacy Free/Starter): historically limited to **100 form submissions per site per month**. If the studio's account is on a legacy plan, consider moving to a credit-based plan.
-- **Files:** submissions are stored in Netlify. Export them via **Forms → Download as CSV** and remove old ones you no longer need (privacy).
-
-Pricing changes often, so confirm on <https://www.netlify.com/pricing/> before relying on these numbers.
-
-### Local development
-
-`npm run dev` does **not** send real submissions. It logs the payload in the browser console and shows the success message. Real submissions only work on a Netlify deploy.
-
----
-
-## Ownership & accounts
-
-- The **GitHub repository** and the **Netlify site/team** should be owned by ANICX MEDIA's own accounts. Add the developer as a collaborator, not the other way round.
-- No paid services, API keys or databases are required. Recurring cost on the Netlify Free plan: ₹0, subject to the usage limits above.
-
----
-
-## Final acceptance checklist
-
-| Item | Status |
+| Item | Value |
 | --- | --- |
-| All required pages and routes exist (incl. dynamic `/projects/:slug`, `/academy/:slug`, 404) | ✅ |
-| Navigation links work; deep links and refreshes work (prerendered HTML) | ✅ verified locally with a Netlify-like server |
-| Homepage hero timeline, reveals, parallax, marquee, CTA | ✅ |
-| No animation-related console errors (dev and production, 2 viewports, 12 routes) | ✅ |
-| Portfolio filtering (URL-shareable `?category=`) | ✅ |
-| Video previews: lazy YouTube modal, Escape to close, focus returns, YouTube fallback link | ✅ |
-| Academy and course pages (course pages are drafts until content is approved) | ✅ |
-| Project detail pages | ✅ |
-| Forms: validation, error states, URL-encoded submission, success state | ✅ locally. ⏳ **Verify real submissions in the Netlify dashboard after the first deploy** |
-| Mobile navigation (focus trap, Escape, closes on navigation) | ✅ |
-| Breakpoints: checked at 390px and 1440px automatically, no horizontal overflow | ✅ Also check 320px, tablet and 1920px+ on real devices before launch |
-| Reduced motion (no Lenis, no GSAP motion, CSS transitions off) | ✅ |
-| Keyboard navigation and visible focus | ✅ |
-| Metadata, Open Graph, JSON-LD, sitemap, robots.txt | ✅ Sitemap/canonicals need the site URL (automatic on Netlify) |
-| Images optimised (WebP, responsive, sized, lazy) | ✅ |
-| No fabricated content in production (draft system) | ✅ Pending the ownership confirmation above |
-| No placeholder production links (WhatsApp/email/phone hidden until real) | ✅ |
-| Production build passes (`npm run check`) | ✅ |
-| README and handover docs | ✅ |
+| **Brand** | ANICX MEDIA |
+| **Phone** | `+91 87703 38294` (`tel:+918770338294`) |
+| **WhatsApp Number** | `918770338294` (`https://wa.me/918770338294`) |
+| **Location** | Seoni, Madhya Pradesh - 480661 |
+| **Google Maps Location** | `https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA` |
+| **Instagram** | `https://www.instagram.com/anicx_media/` (`@anicx_media`) |
+| **Live Domain / Target** | `https://anicx-media.vercel.app/` |
+
+*Note: Unsupplied optional fields (street address text, business email, and office hours) are omitted across the site without placeholders per owner instructions.*
+
+---
+
+## 2. Information Architecture & Navigation
+
+Primary Header Action: **Start a Project** (`/contact?enquiry=project#enquiry`).
+
+Top Navigation items:
+1. **Home** (`/`)
+2. **Services** (`/services` with dedicated pages at `/services/animation`, `/services/web-development`, `/services/video-editing`)
+3. **Our Work** (`/portfolio` - Original Series are included inside Our Work with dedicated category filter; legacy `/projects` redirects to `/portfolio`)
+4. **Academy** (`/academy` and `/academy/:slug`)
+5. **About** (`/about`)
+6. **Contact** (`/contact`)
+
+---
+
+## 3. Homepage Section Order (Verified)
+
+1. **Hero:** "Stories in Motion. Businesses Online." with actions "Discuss Your Project", "Explore Our Work", and "Want to learn? Explore ANICX Academy."
+2. **Showreel:** Actual ANICX animation production work, strong poster image, click-to-play with audio on user interaction (no auto sound).
+3. **Three Service Cards:** Animation Studio, Websites & Content, ANICX Academy, plus capacity notice for Social Media & Paid Ads ("Enquire About Availability").
+4. **Selected Client Work:** Hotel website (`hotelshantione.in`) with "Visit Website" & "Enquire About a Similar Website", representative animation contributions, and responsive grid of 5 animation client channels with "View Channel".
+5. **Original Series:** Panga Toonz (family comedy) and Raaz Wali Raat (2D Hindi horror with 18+ advisory), separate from client work.
+6. **How We Work:** 5 steps (Discuss → Plan & Quote → Create → Review → Deliver).
+7. **Academy Preview:** Course cards and upcoming-batch interest form.
+8. **Final Contact Section:** "Have a project in mind? Let’s discuss it." with direct WhatsApp, Direct Call, and Google Maps location actions.
+
+---
+
+## 4. WhatsApp Enquiry Implementation
+
+- Centralized templates in `src/data/siteConfig.ts` (`WHATSAPP_TEMPLATES`):
+  - General
+  - Animation
+  - Website
+  - Video editing
+  - Training
+  - Portfolio-specific contextual enquiry
+- **Floating WhatsApp button** on all public pages with accessible label `Chat with ANICX Media on WhatsApp`.
+- **Project Enquiry Form:**
+  - Required: Full name, service, project details.
+  - Optional: Business/channel name, budget range (incl. Need Guidance), preferred deadline (incl. Flexible), reference link.
+  - Button: "Continue on WhatsApp".
+  - Omits empty optional fields, ends with `"Enquiry from ANICX website"`.
+  - Helper text: *"Your enquiry will open in WhatsApp. Please send the message there to complete it."*
+  - Form preserves user inputs when returning to the tab.
+- **Student Enquiry Form:**
+  - Fields: name, interested course, skill level, laptop/PC availability, preferred online/offline mode, preferred timing.
+  - Route to WhatsApp with training template.
+  - Transparency disclosure: *"Training does not guarantee employment. Candidates may be considered for available internships or jobs after skill assessment."*
+
+---
+
+## 5. Routing Defect Fix & Deployment
+
+- **Defect fixed:** direct request to `/academy` (and all subroutes) returned 404 on static hosts without trailing slash or SSR mapping.
+- **Fix:**
+  - `scripts/prerender.mjs` generates both `dist/<path>/index.html` AND `dist/<path>.html`.
+  - Added `vercel.json` with `"cleanUrls": true`, `"trailingSlash": false`, and permanent redirect from `/projects` to `/portfolio`.
+  - Updated `netlify.toml` with redirect from `/projects` to `/portfolio`.
+  - Configured client-side redirect in `src/pages/ProjectsRedirect.tsx` with `<meta http-equiv="refresh">` fallback.
+  - Generates `dist/404.html` for unknown paths.
+  - Automatically generates `sitemap.xml` and `robots.txt`.
+
+---
+
+## 6. How to Update Portfolio & Courses
+
+### Adding / Editing Portfolio Items
+Edit [`src/data/projects.ts`](file:///Users/milendrakumarbaghel/Documents/projects/anicx-media/src/data/projects.ts):
+- Add an entry to `workItems`:
+  - `id`: unique string
+  - `title`: display title
+  - `category`: `'website-development'` | `'3d-animation'` | `'2d-animation'` | `'video-editing'` | `'original-series'`
+  - `kind`: `'client-work'` | `'original-series'`
+  - `youtubeId`: YouTube video ID (or `externalUrl` + `image`)
+  - `brief`, `actualRole`, `deliverables`, `enquiryMessage`
+  - `status`: `'approved'`
+
+### Updating Animation Client Channels
+Edit [`src/data/clients.ts`](file:///Users/milendrakumarbaghel/Documents/projects/anicx-media/src/data/clients.ts):
+- Add/update entry in `clientChannels` array with `name`, `url`, `role`, and `description`.
+
+### Updating Academy Courses
+Edit [`src/data/courses.ts`](file:///Users/milendrakumarbaghel/Documents/projects/anicx-media/src/data/courses.ts):
+- Update course details, syllabus modules, teaching hours, schedule, requirements, and fees in `courses`.
+
+---
+
+## 7. Build & Quality Verification
+
+Run verification command:
+```bash
+npm run check
+```
+This runs:
+1. `npm run typecheck` (`tsc -b`) - verifies TypeScript types.
+2. `npm run lint` (`eslint .`) - verifies code standards.
+3. `npm run build` (`vite build`, SSR build, and `node scripts/prerender.mjs`) - builds production assets and prerenders all static HTML pages.

@@ -1,71 +1,109 @@
+import { ArrowRight, GraduationCap } from 'lucide-react'
 import { useRef } from 'react'
+import { Link } from 'react-router'
 import { useScrollReveal } from '../../animations/useScrollReveal'
 import { useStaggerReveal } from '../../animations/useStaggerReveal'
-import { isDraft, visibleCourses } from '../../lib/content'
-import { AcademyBenefits } from '../academy/AcademyBenefits'
-import { CourseCard } from '../academy/CourseCard'
-import { SyllabusAccordion } from '../academy/SyllabusAccordion'
+import { visibleCourses } from '../../lib/content'
+import { CourseEnquiryForm } from '../forms/CourseEnquiryForm'
 import { ButtonLink } from '../ui/Button'
-import { DraftBadge } from '../ui/DraftBadge'
 import { SectionHeading } from '../ui/SectionHeading'
 
 export function AcademySection() {
   const ref = useRef<HTMLElement>(null)
   useScrollReveal(ref)
   useStaggerReveal(ref)
-  const preview = visibleCourses.find((course) => course.syllabus.length > 0)
 
   return (
-    <section ref={ref} aria-labelledby="academy-title" className="py-6 md:py-10">
+    <section ref={ref} aria-labelledby="academy-preview-title" className="section-y bg-mist">
       <div className="shell">
-        <div className="relative overflow-hidden rounded-[var(--radius-panel)] border border-line bg-mist px-5 py-16 sm:px-10 md:py-24 lg:px-16">
-          <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-accent/40" />
-
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
-            <SectionHeading
-              id="academy-title"
-              className="lg:col-span-7"
-              eyebrow="Animation Academy"
-              title={['Learn to Create.', 'Learn to Animate.']}
-              intro="Explore practical animation training from a creative production studio."
-            />
-            <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end" data-reveal>
-              <ButtonLink to="/academy">Explore Training</ButtonLink>
-              <ButtonLink to="/academy#enquire" variant="secondary">
-                Course enquiry
-              </ButtonLink>
-            </div>
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+          <SectionHeading
+            id="academy-preview-title"
+            className="lg:col-span-7"
+            eyebrow="ANICX Academy"
+            title={['Practical Animation Training', 'From a Working Studio']}
+            intro="Learn 3D character animation in Blender, 2D storytelling, and high-impact video editing online."
+          />
+          <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end" data-reveal>
+            <ButtonLink to="/academy">Explore Academy</ButtonLink>
+            <ButtonLink to="/academy#enquire" variant="secondary">
+              Register Interest
+            </ButtonLink>
           </div>
+        </div>
 
-          <div className="mt-14">
-            {visibleCourses.length > 0 ? (
-              <ul className="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-                {visibleCourses.map((course, index) => (
-                  <li key={course.slug} data-stagger>
-                    <CourseCard course={course} index={index} />
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <AcademyBenefits />
-            )}
-          </div>
+        {/* Course Cards Preview */}
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {visibleCourses.map((course) => (
+            <div
+              key={course.slug}
+              data-stagger
+              className="flex flex-col justify-between rounded-[var(--radius-card)] border border-line bg-paper p-6 transition-all hover:border-ink"
+            >
+              <div>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-mist px-3 py-1 text-xs font-semibold text-muted">
+                  <GraduationCap size={14} className="text-accent" />
+                  {course.category}
+                </span>
 
-          {preview && (
-            <div className="mt-16 grid gap-8 border-t border-line pt-12 lg:grid-cols-12" data-reveal>
-              <div className="lg:col-span-4">
-                <p className="eyebrow">Syllabus preview</p>
-                <h3 className="mt-3 font-display text-heading font-medium">{preview.title}</h3>
-                {isDraft(preview) && <DraftBadge className="mt-4" label="Draft syllabus" />}
-                <div className="mt-6">
-                  <ButtonLink to={`/academy/${preview.slug}`} variant="secondary" compact>
-                    Full course details
-                  </ButtonLink>
-                </div>
+                <h3 className="mt-4 font-display text-xl font-medium tracking-tight text-ink">
+                  {course.title}
+                </h3>
+
+                <p className="mt-2 text-sm text-muted">
+                  {course.summary}
+                </p>
+
+                {course.format && (
+                  <div className="mt-4 space-y-1.5 border-t border-line/60 pt-3 text-xs text-muted">
+                    {course.format.duration && (
+                      <p>
+                        <span className="font-semibold text-ink">Duration:</span> {course.format.duration} ({course.format.teachingHours})
+                      </p>
+                    )}
+                    {course.format.mode && (
+                      <p>
+                        <span className="font-semibold text-ink">Mode:</span> {course.format.mode}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
-              <SyllabusAccordion modules={preview.syllabus} className="lg:col-span-8" />
+
+              <div className="mt-6 pt-4 border-t border-line">
+                <Link
+                  to={`/academy/${course.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink hover:underline"
+                >
+                  <span>View Syllabus &amp; Details</span>
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
-          )}
+          ))}
+        </div>
+
+        {/* Upcoming-Batch Interest Form */}
+        <div className="mt-16 rounded-[var(--radius-panel)] border border-line bg-paper p-6 sm:p-10 lg:p-12" data-reveal>
+          <div className="grid gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <span className="eyebrow text-accent">Upcoming Batches</span>
+              <h3 className="mt-2 font-display text-2xl font-medium tracking-tight text-ink sm:text-3xl">
+                Register Your Interest
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                Batches are organized in small cohorts to ensure direct personal feedback. Fill in your preferred timing and skill level to receive syllabus details and schedule on WhatsApp.
+              </p>
+
+              <div className="mt-6 rounded-xl border border-line bg-mist p-4 text-xs text-muted">
+                <strong className="text-ink">Transparency Policy:</strong> Training does not guarantee employment. Candidates may be considered for available internships or jobs after skill assessment.
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <CourseEnquiryForm idPrefix="home-academy" />
+            </div>
+          </div>
         </div>
       </div>
     </section>

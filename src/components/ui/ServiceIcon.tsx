@@ -1,4 +1,4 @@
-import { Box, Brush, Clapperboard, Megaphone, MonitorPlay, Package, PenTool, Users, type LucideIcon } from 'lucide-react'
+import { Box, Brush, Clapperboard, Globe, GraduationCap, Megaphone, MonitorPlay, Package, PenTool, Users, type LucideIcon } from 'lucide-react'
 import type { ServiceIcon as ServiceIconName } from '../../types/content'
 
 const icons: Record<ServiceIconName, LucideIcon> = {
@@ -10,6 +10,8 @@ const icons: Record<ServiceIconName, LucideIcon> = {
   users: Users,
   'pen-tool': PenTool,
   'monitor-play': MonitorPlay,
+  globe: Globe,
+  'graduation-cap': GraduationCap,
 }
 
 export function ServiceIcon({ name, size = 22, className }: { name: ServiceIconName; size?: number; className?: string }) {

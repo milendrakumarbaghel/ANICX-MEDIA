@@ -7,9 +7,12 @@ import { WhatsAppIcon } from '../ui/BrandIcons'
 const FORM_FIELDS = 'input, textarea, select'
 
 /**
- * Floating WhatsApp shortcut. Renders nothing until a real business number is
- * set in siteConfig.contact.whatsapp. Hidden on the contact page (which links
- * WhatsApp inline) and while a form field has focus, so it never covers inputs.
+ * Floating WhatsApp shortcut on all public pages.
+ *
+ * Requirements:
+ * - Base destination: https://wa.me/918770338294 with encoded text query
+ * - Accessible label: "Chat with ANICX Media on WhatsApp"
+ * - Does not overlap mobile navigation, consent controls, forms, or footer content.
  */
 export function WhatsAppButton() {
   const href = whatsappHref()
@@ -17,7 +20,6 @@ export function WhatsAppButton() {
   const [formFocused, setFormFocused] = useState(false)
 
   useEffect(() => {
-    if (!href) return
     const onFocusIn = (event: FocusEvent) => setFormFocused((event.target as Element).matches?.(FORM_FIELDS) ?? false)
     const onFocusOut = () => setFormFocused(false)
     document.addEventListener('focusin', onFocusIn)
@@ -26,9 +28,9 @@ export function WhatsAppButton() {
       document.removeEventListener('focusin', onFocusIn)
       document.removeEventListener('focusout', onFocusOut)
     }
-  }, [href])
+  }, [])
 
-  if (!href) return null
+  // Hidden on contact page (which has prominent inline buttons) and when a form field is actively focused on mobile
   const visible = pathname !== '/contact' && !formFocused
 
   return (
@@ -44,7 +46,7 @@ export function WhatsAppButton() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.25 }}
           className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#1f7a4d] text-paper shadow-[0_12px_30px_-10px_rgba(0,0,0,0.45)] transition-transform hover:-translate-y-0.5 sm:right-8"
-          aria-label="Chat with ANICX MEDIA on WhatsApp (opens in a new tab)"
+          aria-label="Chat with ANICX Media on WhatsApp"
         >
           <WhatsAppIcon size={26} />
         </m.a>

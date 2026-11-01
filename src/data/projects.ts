@@ -3,40 +3,69 @@ import type { OriginalProject, WorkCategory, WorkItem } from '../types/content'
 /**
  * Portfolio + original projects.
  *
- * Sources supplied by the client:
- * - Raaz Wali Raat: https://www.youtube.com/@Raazwaliraat/videos
- * - Panga Toonz:    https://www.youtube.com/@Pangatoonz
- *
- * Titles below are the published YouTube titles (cleaned of SEO tags).
- * Descriptions only restate what each title and channel description say.
- *
- * To add a video: copy an entry, set a unique `id`, paste the YouTube ID
- * (the part after "watch?v="), choose a category, and set status: 'approved'.
+ * Filter categories per brief:
+ * All | Website Development | 3D Animation | 2D Animation | Video Editing | Original Series
  */
-
 export const workCategories: { id: WorkCategory | 'all'; label: string }[] = [
-  { id: 'all', label: 'All Projects' },
-  { id: '2d-animation', label: '2D Animation' },
+  { id: 'all', label: 'All' },
+  { id: 'website-development', label: 'Website Development' },
   { id: '3d-animation', label: '3D Animation' },
-  { id: 'product-animation', label: 'Product Animation' },
+  { id: '2d-animation', label: '2D Animation' },
   { id: 'video-editing', label: 'Video Editing' },
-  { id: 'promotional', label: 'Promotional Content' },
+  { id: 'original-series', label: 'Original Series' },
 ]
 
-export const categoryLabel = (id: WorkCategory): string =>
+export const categoryLabel = (id: WorkCategory | 'all'): string =>
   workCategories.find((c) => c.id === id)?.label ?? id
 
 const RAAZ = 'Raaz Wali Raat'
 const PANGA = 'Panga Toonz'
 
 export const workItems: WorkItem[] = [
+  // --- Client Work: Website Development ---
+  {
+    id: 'hotel-shanti-one',
+    status: 'approved',
+    featured: true,
+    title: 'hotelshantione.in',
+    category: 'website-development',
+    kind: 'client-work',
+    description: 'A hotel website developed by ANICX Media.',
+    brief:
+      'Modern, high-performance responsive website for Hotel Shantione (Suktara, Seoni), presenting rooms, amenities, location and direct guest bookings via WhatsApp.',
+    actualRole: 'Website Design & Development',
+    deliverables: [
+      'Custom responsive layout for mobile and desktop',
+      'Direct WhatsApp booking enquiry integration',
+      'Room showcase, photo gallery and amenities',
+      'Google Maps directions and location integration',
+      'Fast loading, SEO-ready architecture',
+    ],
+    externalUrl: 'https://hotelshantione.in',
+    externalUrlLabel: 'Visit Website',
+    image: {
+      src: '/media/work/hotelshantione-og.jpg',
+      alt: 'Hotel Shantione website preview - developed by ANICX Media',
+      width: 1200,
+      height: 630,
+    },
+    source: 'hotelshantione.in',
+    enquiryMessage:
+      'Hello ANICX Media! I saw hotelshantione.in on your website and would like to discuss a similar website.',
+  },
+
+  // --- Original Series & Studio Animation ---
   {
     id: 'panga-toonz-dandia',
     status: 'approved',
     featured: true,
     title: 'Rinku Tony Ki Dandia',
     category: '3d-animation',
+    kind: 'original-series',
     description: 'A Navratri special episode of Panga Toonz, the desi comedy series in 3D animation.',
+    brief: 'Festival special comedy episode featuring Kaddu, Paddu and friends.',
+    actualRole: '3D Character Animation, Rigging & Scene Assembly',
+    deliverables: ['Full 3D animated comedy episode', 'Custom character rigs and festival props'],
     youtubeId: '6REn-I_gkRY',
     projectSlug: 'panga-toonz',
     source: PANGA,
@@ -47,7 +76,11 @@ export const workItems: WorkItem[] = [
     featured: true,
     title: 'Kaalnetri',
     category: '2d-animation',
+    kind: 'original-series',
     description: 'Ek shrapit pishachini: a 2D animated Hindi horror story from Raaz Wali Raat.',
+    brief: 'Dark folktale animated for long-form adult storytelling.',
+    actualRole: '2D Animation, Visual Layout & Sound Assembly',
+    deliverables: ['Long-form 2D animated horror episode', 'Character design and spooky atmospheric art'],
     youtubeId: 'i1eYKDln1u8',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -59,7 +92,11 @@ export const workItems: WorkItem[] = [
     featured: true,
     title: 'Pinky Chirkut aur Hero Makdaman Ki Entry',
     category: '3d-animation',
+    kind: 'original-series',
     description: 'The full-part Makdaman video from Panga Toonz, the desi comedy series in 3D animation.',
+    brief: 'Multi-part superhero parody episode with high-energy gags.',
+    actualRole: '3D Character Animation & Comic Timing',
+    deliverables: ['3D cartoon episode', 'Action blocking and facial expressions'],
     youtubeId: 'BZZ_sTI_ooM',
     projectSlug: 'panga-toonz',
     source: PANGA,
@@ -67,10 +104,14 @@ export const workItems: WorkItem[] = [
   {
     id: 'raaz-kaalchakra-trailer',
     status: 'approved',
-    featured: true,
+    featured: false,
     title: 'Kaalchakra: Official Trailer',
-    category: 'promotional',
+    category: 'video-editing',
+    kind: 'original-series',
     description: 'The official trailer for Kaalchakra, a Raaz Wali Raat horror story.',
+    brief: 'Atmospheric teaser trailer designed to build suspense for YouTube premiere.',
+    actualRole: 'Promotional Teaser Editing & Sound Design',
+    deliverables: ['YouTube cinematic teaser trailer', 'Title motion graphics and audio mastering'],
     youtubeId: 'kc4FHnDFg6s',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -82,7 +123,11 @@ export const workItems: WorkItem[] = [
     featured: true,
     title: 'Ganpati Visarjan Ki Dhamakedar Episode',
     category: '3d-animation',
+    kind: 'original-series',
     description: 'A festive Ganpati Visarjan episode of Panga Toonz in 3D animation.',
+    brief: 'Celebratory community episode with multiple character interactions.',
+    actualRole: '3D Environment Layout & Character Animation',
+    deliverables: ['Full 3D animated festive special', 'Crowd animation and celebration props'],
     youtubeId: 'YtG7_G9lzOU',
     projectSlug: 'panga-toonz',
     source: PANGA,
@@ -93,7 +138,11 @@ export const workItems: WorkItem[] = [
     featured: true,
     title: 'Vikraal',
     category: '2d-animation',
+    kind: 'original-series',
     description: 'An animated horror story from Raaz Wali Raat.',
+    brief: 'Tense supernatural encounter animated with hand-crafted 2D visual style.',
+    actualRole: '2D Scene Pacing, Backgrounds & Animation',
+    deliverables: ['2D animated story episode', 'Character and lighting effects'],
     youtubeId: 'EpkBGucmx8o',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -104,7 +153,11 @@ export const workItems: WorkItem[] = [
     status: 'approved',
     title: 'Kaalchakra',
     category: '2d-animation',
+    kind: 'original-series',
     description: 'The full Kaalchakra horror story, animated in 2D for Raaz Wali Raat.',
+    brief: 'Full episodic Hindi horror story for YouTube.',
+    actualRole: 'Full 2D Production Support',
+    deliverables: ['Complete animated story', 'Audio-visual syncing'],
     youtubeId: 'VFi3RRMqnsw',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -115,29 +168,12 @@ export const workItems: WorkItem[] = [
     status: 'approved',
     title: 'Zoo Safari Ki Masti Aur Hungama',
     category: '3d-animation',
+    kind: 'original-series',
     description: 'A zoo safari adventure episode of Panga Toonz.',
+    brief: 'Outdoor adventure episode with animals and comedic situations.',
+    actualRole: '3D Modeling, Rigging & Animation',
+    deliverables: ['3D cartoon episode', 'Exterior lighting and props'],
     youtubeId: 'sQmVGY3WeKM',
-    projectSlug: 'panga-toonz',
-    source: PANGA,
-  },
-  {
-    id: 'raaz-karnrakshasi-1',
-    status: 'approved',
-    title: 'Karnrakshasi: Part 1',
-    category: '2d-animation',
-    description: 'Part one of the two-part Karnrakshasi horror story from Raaz Wali Raat.',
-    youtubeId: 'eQZMCXSngnc',
-    projectSlug: 'raaz-wali-raat',
-    source: RAAZ,
-    advisory: '18+',
-  },
-  {
-    id: 'panga-toonz-car-race',
-    status: 'approved',
-    title: 'Kiske Hath Aayegi Jeet? 3 Car Race Dhamaka',
-    category: '3d-animation',
-    description: 'A three-car race episode of Panga Toonz in 3D animation.',
-    youtubeId: 'AcIlBkDe4Q8',
     projectSlug: 'panga-toonz',
     source: PANGA,
   },
@@ -145,8 +181,12 @@ export const workItems: WorkItem[] = [
     id: 'raaz-haunted-highway-trailer',
     status: 'approved',
     title: 'Haunted Highway: Official Trailer',
-    category: 'promotional',
+    category: 'video-editing',
+    kind: 'original-series',
     description: 'The official trailer for Haunted Highway, a Raaz Wali Raat horror story.',
+    brief: 'Short promo cut for YouTube shorts and teaser release.',
+    actualRole: 'Trailer Editing & Pacing',
+    deliverables: ['Short promotional trailer', 'Sound effects and suspenseful timing'],
     youtubeId: '1O9qBccQQkQ',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -157,19 +197,27 @@ export const workItems: WorkItem[] = [
     status: 'approved',
     title: 'Bhram Ek Chalawa',
     category: '2d-animation',
+    kind: 'original-series',
     description: 'A Hindi horror story animated in 2D for Raaz Wali Raat.',
+    brief: 'Psychological supernatural narrative in 2D.',
+    actualRole: '2D Animation & Storyboard Execution',
+    deliverables: ['2D animated story'],
     youtubeId: 'WucbntAipEA',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
     advisory: '18+',
   },
   {
-    id: 'panga-toonz-janmashtami',
+    id: 'panga-toonz-car-race',
     status: 'approved',
-    title: 'Janmashtami Special Masti',
+    title: 'Kiske Hath Aayegi Jeet? 3 Car Race Dhamaka',
     category: '3d-animation',
-    description: 'A Janmashtami festival special episode of Panga Toonz.',
-    youtubeId: 'ldmmcyRpMCg',
+    kind: 'original-series',
+    description: 'A three-car race episode of Panga Toonz in 3D animation.',
+    brief: 'High-speed race comedy with dynamic vehicle motion.',
+    actualRole: 'Vehicle Rigging & Animation',
+    deliverables: ['3D racing comedy scene'],
+    youtubeId: 'AcIlBkDe4Q8',
     projectSlug: 'panga-toonz',
     source: PANGA,
   },
@@ -178,7 +226,11 @@ export const workItems: WorkItem[] = [
     status: 'approved',
     title: 'Adhuri Chai',
     category: '2d-animation',
+    kind: 'original-series',
     description: 'A ghost story animated in 2D for Raaz Wali Raat.',
+    brief: 'Eerie mystery story about an unfinished cup of tea.',
+    actualRole: 'Character Animation & Environmental Design',
+    deliverables: ['2D ghost story episode'],
     youtubeId: 'LaaUW5-bi5Q',
     projectSlug: 'raaz-wali-raat',
     source: RAAZ,
@@ -242,7 +294,6 @@ export const originalProjects: OriginalProject[] = [
       { label: 'Language', value: 'Hindi' },
       { label: 'Platform', value: 'YouTube' },
     ],
-    // Names from the channel description. Add descriptions/images once approved.
     characters: [{ name: 'Kaddu' }, { name: 'Paddu' }, { name: 'Pinki' }],
     episodes: [
       { youtubeId: 'ppOco6q4KFM', title: 'Pinky Ne Tod Di Remote' },
@@ -254,22 +305,6 @@ export const originalProjects: OriginalProject[] = [
       { youtubeId: 'BZZ_sTI_ooM', title: 'Pinky Chirkut aur Hero Makdaman Ki Entry' },
       { youtubeId: 'a5wfeoWVRMM', title: '15 August Ki Tayyari' },
     ],
-    gallery: [],
-  },
-  {
-    // DRAFT: the client asked for Dhamal Nagar to be supported, but no approved
-    // synopsis, poster, characters or episodes have been supplied yet.
-    slug: 'dhamal-nagar',
-    status: 'draft',
-    title: 'Dhamal Nagar',
-    tagline: 'Awaiting approved project details.',
-    format: 'Original animated project',
-    overview: [
-      'Project synopsis pending from ANICX MEDIA. Add the approved description, poster, trailer, characters and episode links in src/data/projects.ts, then set status to "approved".',
-    ],
-    facts: [],
-    characters: [],
-    episodes: [],
     gallery: [],
   },
 ]

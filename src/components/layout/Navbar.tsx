@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { NavLink, useLocation } from 'react-router'
-import { mainNav } from '../../app/navigation'
+import { mainNav, primaryHeaderAction } from '../../app/navigation'
 import { useFocusTrap } from '../../hooks/useFocusTrap'
 import { cn } from '../../lib/cn'
 import { ButtonLink } from '../ui/Button'
@@ -68,8 +68,8 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ButtonLink to="/contact" compact className="hidden sm:inline-flex">
-            Let’s Talk
+          <ButtonLink to={primaryHeaderAction.to} compact className="hidden sm:inline-flex">
+            {primaryHeaderAction.label}
           </ButtonLink>
           <button
             type="button"

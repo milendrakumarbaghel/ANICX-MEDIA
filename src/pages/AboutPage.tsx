@@ -24,7 +24,7 @@ export default function AboutPage() {
     .map((category) => visibleWork.find((item) => item.category === category && item.youtubeId))
     .filter((item) => item !== undefined)
 
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locationLabel)}`
+  const mapsUrl = siteConfig.contact.mapsUrl
 
   return (
     <>

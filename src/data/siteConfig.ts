@@ -1,9 +1,14 @@
 /**
  * Central business configuration for ANICX MEDIA.
  *
- * Only verified details belong here. Fields set to `null` are MISSING and are
- * hidden across the site until the client supplies them. See README.md →
- * "Content still needed from the client".
+ * Grounded strictly in owner-confirmed business inputs:
+ * - Brand: ANICX MEDIA
+ * - Phone / WhatsApp: +91 87703 38294
+ * - WhatsApp URL: https://wa.me/918770338294
+ * - Location: Seoni, Madhya Pradesh - 480661
+ * - Google Maps: https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA
+ *
+ * Optional unsupplied fields (street address, email, hours) are omitted.
  */
 
 export interface SocialLink {
@@ -12,24 +17,28 @@ export interface SocialLink {
   handle?: string
 }
 
+export const WHATSAPP_TEMPLATES = {
+  general: 'Hello ANICX Media! I found your website and would like to know more about your services.',
+  animation: 'Hello ANICX Media! I would like to discuss a 2D/3D animation project. Please share your process and quotation details.',
+  website: 'Hello ANICX Media! I need a professional website for my business. Please share your packages and process.',
+  videoEditing: 'Hello ANICX Media! I need video editing/reels services. Please share the details.',
+  training: 'Hello ANICX Academy! I would like information about courses, fees, timings and laptop/PC requirements.',
+  portfolio: (projectName: string) =>
+    `Hello ANICX Media! I saw ${projectName} on your website and would like to discuss a similar project.`,
+} as const
+
 export const siteConfig = {
   name: 'ANICX MEDIA',
   shortName: 'ANICX',
-  tagline: 'Animation Studio & Creative Academy',
+  tagline: 'Stories in Motion. Businesses Online.',
   description:
-    'ANICX MEDIA is an animation studio and creative academy in Seoni, Madhya Pradesh. We create 2D and 3D animation, videos and brand content, and teach animation online.',
+    'ANICX Media creates 2D and 3D animation, business websites and engaging video content. Based in Seoni, collaborating with clients online.',
 
   /**
-   * Canonical site URL, without a trailing slash. Filled automatically on
-   * Netlify from the build's `URL` variable, or set VITE_SITE_URL explicitly
-   * once the custom domain is live.
+   * Canonical site URL without trailing slash.
    */
-  url: (import.meta.env.VITE_SITE_URL ?? '').replace(/\/$/, ''),
+  url: (import.meta.env.VITE_SITE_URL ?? 'https://anicx-media.vercel.app').replace(/\/$/, ''),
 
-  /**
-   * MISSING: approved logo. Place it in /public (SVG preferred), e.g.
-   * src: '/brand/anicx-logo.svg'. While null, a typographic wordmark is used.
-   */
   logo: {
     src: null as string | null,
     alt: 'ANICX MEDIA',
@@ -38,26 +47,23 @@ export const siteConfig = {
   },
 
   contact: {
-    /** MISSING: business email, e.g. 'hello@anicxmedia.com'. */
     email: null as string | null,
-    /** MISSING: phone number in international format, e.g. '+91 98765 43210'. */
-    phone: null as string | null,
-    /**
-     * MISSING: WhatsApp number, digits only with country code, e.g. '919876543210'.
-     * The floating WhatsApp button stays hidden until this is set.
-     */
-    whatsapp: null as string | null,
-    whatsappMessage: 'Hello ANICX MEDIA, I would like to know more about',
+    phone: '+91 87703 38294',
+    whatsapp: '918770338294',
+    whatsappRaw: '+91 87703 38294',
+    whatsappMessage: WHATSAPP_TEMPLATES.general,
+    mapsUrl: 'https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA',
+    tel: 'tel:+918770338294',
   },
 
   address: {
-    /** MISSING: street address and postal code (optional, only if public). */
     street: null as string | null,
-    postalCode: null as string | null,
+    postalCode: '480661',
     locality: 'Seoni',
     region: 'Madhya Pradesh',
     country: 'India',
     countryCode: 'IN',
+    display: 'Seoni, Madhya Pradesh - 480661',
   },
 
   social: {
@@ -66,17 +72,12 @@ export const siteConfig = {
       url: 'https://www.instagram.com/anicx_media/',
       handle: '@anicx_media',
     } satisfies SocialLink,
-    /** YouTube channels for the studio's original series. */
     youtube: [
       { label: 'Raaz Wali Raat', url: 'https://www.youtube.com/@Raazwaliraat', handle: '@Raazwaliraat' },
       { label: 'Panga Toonz', url: 'https://www.youtube.com/@Pangatoonz', handle: '@Pangatoonz' },
     ] satisfies SocialLink[],
   },
 
-  /**
-   * Brand colours. Applied as CSS variables on the root layout, so changing a
-   * value here restyles the whole site. Update `accent` once the logo is final.
-   */
   brand: {
     colors: {
       paper: '#FFFFFF',
@@ -85,37 +86,52 @@ export const siteConfig = {
       muted: '#666666',
       line: '#E9E9E7',
       accent: '#C7A15A',
-      /** Darker accent used for small text on white (keeps AA contrast). */
       accentInk: '#84642A',
     },
   },
 
-  /** Default social sharing image (1200×630). */
   ogImage: '/media/og-default.jpg',
 
   forms: {
+    services: [
+      '3D Animation',
+      '2D Animation',
+      'Website Development',
+      'Video Editing / Reels',
+      'Social Media / Ads Availability',
+      'Other / Need Guidance',
+    ] as const,
     budgetRanges: [
       'Under ₹25,000',
       '₹25,000 – ₹75,000',
       '₹75,000 – ₹2,00,000',
       'Above ₹2,00,000',
-      'Not sure yet',
+      'Need Guidance',
     ],
-    timelines: ['As soon as possible', 'Within 1 month', '1 – 3 months', 'More than 3 months', 'Flexible'],
+    timelines: [
+      'As soon as possible',
+      'Within 1 month',
+      '1 – 3 months',
+      'More than 3 months',
+      'Flexible',
+    ],
+    skillLevels: ['Beginner (Zero experience)', 'Intermediate (Some experience)', 'Advanced'],
+    learningModes: ['Online', 'Offline (Seoni)', 'Either is fine'],
   },
 }
 
 export type SiteConfig = typeof siteConfig
 
-export function whatsappHref(message = siteConfig.contact.whatsappMessage): string | null {
-  const number = siteConfig.contact.whatsapp?.replace(/\D/g, '')
-  if (!number) return null
-  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
+/**
+ * Builds a direct WhatsApp link to 918770338294 with encoded prefilled message.
+ */
+export function whatsappHref(message: string = siteConfig.contact.whatsappMessage): string {
+  const digits = siteConfig.contact.whatsapp.replace(/\D/g, '')
+  return `https://wa.me/${digits}?text=${encodeURIComponent(message)}`
 }
 
-export function phoneHref(): string | null {
-  const phone = siteConfig.contact.phone?.replace(/[^\d+]/g, '')
-  return phone ? `tel:${phone}` : null
+export function phoneHref(): string {
+  return siteConfig.contact.tel
 }
 
-export const locationLabel = `${siteConfig.address.locality}, ${siteConfig.address.region}, ${siteConfig.address.country}`
+export const locationLabel = siteConfig.address.display

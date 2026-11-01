@@ -32,9 +32,10 @@ interface ButtonLinkProps extends CommonProps {
   /** Opens in a new tab with rel="noopener". Detected automatically for http(s) links. */
   external?: boolean
   ariaLabel?: string
+  onClick?: () => void
 }
 
-export function ButtonLink({ to, children, variant = 'primary', compact = false, arrow = true, external, className, ariaLabel }: ButtonLinkProps) {
+export function ButtonLink({ to, children, variant = 'primary', compact = false, arrow = true, external, className, ariaLabel, onClick }: ButtonLinkProps) {
   const isExternal = external ?? /^(https?:|mailto:|tel:)/.test(to)
   const content = (
     <>
@@ -48,6 +49,7 @@ export function ButtonLink({ to, children, variant = 'primary', compact = false,
     return (
       <a
         href={to}
+        onClick={onClick}
         className={classes(variant, compact, arrow, className)}
         aria-label={ariaLabel}
         {...(newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -59,7 +61,7 @@ export function ButtonLink({ to, children, variant = 'primary', compact = false,
   }
 
   return (
-    <Link to={to} className={classes(variant, compact, arrow, className)} aria-label={ariaLabel}>
+    <Link to={to} onClick={onClick} className={classes(variant, compact, arrow, className)} aria-label={ariaLabel}>
       {content}
     </Link>
   )

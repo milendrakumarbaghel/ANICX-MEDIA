@@ -1,7 +1,7 @@
 import { AnimatePresence, m, type Variants } from 'motion/react'
 import { useEffect } from 'react'
 import { NavLink } from 'react-router'
-import { mainNav } from '../../app/navigation'
+import { mainNav, primaryHeaderAction } from '../../app/navigation'
 import { setScrollLocked } from '../../animations/smoothScroll'
 import { siteConfig, whatsappHref } from '../../data/siteConfig'
 import { cn } from '../../lib/cn'
@@ -89,8 +89,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
               className="flex flex-col gap-6"
             >
-              <ButtonLink to="/contact" className="w-full justify-between">
-                Let’s Talk
+              <ButtonLink to={primaryHeaderAction.to} onClick={onClose} className="w-full justify-between">
+                {primaryHeaderAction.label}
               </ButtonLink>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium">
                 <a

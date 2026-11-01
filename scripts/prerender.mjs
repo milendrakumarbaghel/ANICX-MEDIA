@@ -3,12 +3,11 @@
  *
  * Runs after `vite build` (client) and `vite build --ssr` (server bundle):
  *   1. Renders each route to HTML with its own <title>, meta and Open Graph tags.
- *   2. Writes dist/<route>/index.html (plus dist/404.html for unknown URLs).
- *   3. Adds <link rel="modulepreload"> for the route's code-split chunk.
- *   4. Generates sitemap.xml and robots.txt.
- *
- * The browser then hydrates the static HTML, so pages are readable and indexable
- * without JavaScript and become interactive once the bundle loads.
+ *   2. Writes dist/<route>/index.html AND dist/<route>.html to ensure direct routes
+ *      and browser refreshes work flawlessly across all static hosts (Vercel, Netlify, etc.).
+ *   3. Writes dist/404.html for unknown URLs.
+ *   4. Adds <link rel="modulepreload"> for the route's code-split chunk.
+ *   5. Generates sitemap.xml and robots.txt.
  */
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
@@ -58,12 +57,19 @@ async function writePage(path, file) {
 console.log('\nPrerendering routes…')
 const entries = getPrerenderEntries()
 for (const { path } of entries) {
-  await writePage(path, path === '/' ? 'index.html' : `${path.slice(1)}/index.html`)
+  if (path === '/') {
+    await writePage(path, 'index.html')
+  } else {
+    const slug = path.slice(1)
+    await writePage(path, `${slug}/index.html`)
+    // Also write <slug>.html for hosts like Vercel with cleanUrls
+    await writePage(path, `${slug}.html`)
+  }
 }
 await writePage(NOT_FOUND_PATH, '404.html')
 
 // sitemap.xml + robots.txt -----------------------------------------------------
-const siteUrl = siteConfig.url
+const siteUrl = siteConfig.url || 'https://anicx-media.vercel.app'
 const robots = ['User-agent: *', 'Allow: /', 'Disallow: /__forms.html']
 
 if (siteUrl) {
@@ -77,11 +83,9 @@ if (siteUrl) {
   )
   robots.push('', `Sitemap: ${siteUrl}/sitemap.xml`)
   console.log(`  ✓ sitemap.xml (${urls.length} URLs, base ${siteUrl})`)
-} else {
-  console.warn('  ! sitemap.xml skipped: no site URL. Set VITE_SITE_URL (Netlify sets URL automatically).')
 }
 await writeFile(join(dist, 'robots.txt'), `${robots.join('\n')}\n`)
 console.log('  ✓ robots.txt')
 
 await rm(ssrDir, { recursive: true, force: true })
-console.log(`Done: ${entries.length + 1} HTML files.\n`)
+console.log(`Done: prerendered HTML files generated.\n`)

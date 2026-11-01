@@ -1,4 +1,4 @@
-import { Mail, MapPin, Phone } from 'lucide-react'
+import { MapPin, Phone } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import { mainNav } from '../../app/navigation'
@@ -73,7 +73,7 @@ export function Footer() {
             <ul className="flex flex-col gap-3">
               {visibleServices.map((service) => (
                 <li key={service.slug}>
-                  <Link to={`/services#${service.slug}`} className={linkClass}>
+                  <Link to={service.pageRoute ?? `/services#${service.slug}`} className={linkClass}>
                     {service.title}
                   </Link>
                 </li>
@@ -86,7 +86,7 @@ export function Footer() {
             <ul className="flex flex-col gap-3">
               <li>
                 <Link to="/academy" className={linkClass}>
-                  Animation Academy
+                  ANICX Academy
                 </Link>
               </li>
               {visibleCourses.map((course) => (
@@ -98,51 +98,35 @@ export function Footer() {
               ))}
               <li>
                 <Link to="/academy#enquire" className={linkClass}>
-                  Course enquiry
+                  Register Interest
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="eyebrow mb-5">Connect</h2>
+            <h2 className="eyebrow mb-5">Contact</h2>
             <ul className="flex flex-col gap-3 text-[0.95rem]">
-              {contact.email && (
-                <li>
-                  <a href={`mailto:${contact.email}`} className={`${linkClass} gap-2`}>
-                    <Mail size={16} aria-hidden="true" /> {contact.email}
-                  </a>
-                </li>
-              )}
-              {tel && (
-                <li>
-                  <a href={tel} className={`${linkClass} gap-2`}>
-                    <Phone size={16} aria-hidden="true" /> {contact.phone}
-                  </a>
-                </li>
-              )}
-              {whatsapp && (
-                <li>
-                  <ExternalLink href={whatsapp} className={`${linkClass} gap-2`}>
-                    <WhatsAppIcon size={16} /> WhatsApp
-                  </ExternalLink>
-                </li>
-              )}
+              <li>
+                <a href={tel} className={`${linkClass} gap-2`}>
+                  <Phone size={16} aria-hidden="true" /> {contact.phone}
+                </a>
+              </li>
+              <li>
+                <ExternalLink href={whatsapp} className={`${linkClass} gap-2`}>
+                  <WhatsAppIcon size={16} /> WhatsApp ({contact.phone})
+                </ExternalLink>
+              </li>
               <li>
                 <ExternalLink href={social.instagram.url} className={`${linkClass} gap-2`}>
                   <InstagramIcon size={16} /> Instagram
                 </ExternalLink>
               </li>
-              {social.youtube.map((channel) => (
-                <li key={channel.url}>
-                  <ExternalLink href={channel.url} className={`${linkClass} gap-2`}>
-                    <YouTubeIcon size={16} /> {channel.label}
-                  </ExternalLink>
-                </li>
-              ))}
               <li className="flex items-start gap-2 pt-1 text-ink/75">
                 <MapPin size={16} className="mt-1 flex-none" aria-hidden="true" />
-                <address className="not-italic">{locationLabel}</address>
+                <ExternalLink href={contact.mapsUrl} className="not-italic hover:underline">
+                  {locationLabel}
+                </ExternalLink>
               </li>
             </ul>
           </div>

@@ -1,42 +1,46 @@
 /**
- * Studio copy used on the homepage "About" preview and the About page.
+ * Studio copy for ANICX MEDIA.
  *
- * Deliberately free of unverified claims: no founding year, team size,
- * client counts or awards. Add those here only once the client confirms them.
+ * Grounded strictly in confirmed inputs from Developer Handoff brief:
+ * - Workflow: Discuss → Plan & Quote → Create → Review → Deliver
+ * - Grounded capabilities across Animation Studio, Websites & Content, ANICX Academy
+ * - Free of fabricated metrics, awards, or inflated claims.
  */
 
 export const studioIntro = [
-  'ANICX MEDIA is an animation studio and creative academy based in Seoni, Madhya Pradesh. We bring stories to life through 2D and 3D animation, video production and brand content.',
-  'Alongside our production work, we teach animation online, so new creators can learn practical skills from a working studio.',
+  'ANICX Media creates 2D and 3D animation, business websites and engaging video content. Based in Seoni, collaborating with clients online.',
+  'Alongside client production work, ANICX Academy offers practical animation training, workshops, and portfolio development for aspiring creators.',
 ]
 
 export const capabilities = [
-  '2D animation',
   '3D character & cartoon animation',
-  'Product animation',
-  'Video editing & reels',
-  'Promotional videos',
-  'Branding & graphic design',
-  'Digital marketing',
-  'Social media management',
-  'Online animation training',
+  '2D animated stories & series',
+  'Business & hotel website development',
+  'Video editing & YouTube reels',
+  'Explainer & promotional videos',
+  'Character design & 3D rigging',
+  'Practical animation training',
 ]
 
 export const workflow = [
   {
-    title: 'Brief & idea',
-    text: 'We start with your story, audience and goals, and agree on what success looks like.',
+    title: 'Discuss',
+    text: 'We explore your idea, goals, format (animation, website, or video edit) and audience expectations.',
   },
   {
-    title: 'Script & storyboard',
-    text: 'The idea becomes a script, visual style and storyboard you can review before production.',
+    title: 'Plan & Quote',
+    text: 'We outline the creative scope, timeline, milestones and provide a transparent, all-inclusive quotation.',
   },
   {
-    title: 'Design & animation',
-    text: 'Characters, scenes and motion come together in 2D or 3D, with check-ins along the way.',
+    title: 'Create',
+    text: 'Production starts with scripts, storyboards, 3D character rigs, or responsive web wireframes with regular checkpoints.',
   },
   {
-    title: 'Edit, sound & delivery',
-    text: 'Editing, music and sound, then final files ready for YouTube, Instagram or your campaign.',
+    title: 'Review',
+    text: 'Structured review rounds allow you to verify timing, details and text adjustments against the agreed scope.',
+  },
+  {
+    title: 'Deliver',
+    text: 'Final master assets delivered ready to publish on YouTube, live on your domain, or across your media channels.',
   },
 ]

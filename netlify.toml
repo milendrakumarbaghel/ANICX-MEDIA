@@ -18,6 +18,11 @@
 [context.branch-deploy.environment]
   VITE_SHOW_DRAFTS = "true"
 
+[[redirects]]
+  from = "/projects"
+  to = "/portfolio"
+  status = 301
+
 # Hashed build assets never change: cache them for a year.
 [[headers]]
   for = "/assets/*"

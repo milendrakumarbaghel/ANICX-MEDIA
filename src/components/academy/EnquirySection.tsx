@@ -1,5 +1,5 @@
 import { Mail, Phone } from 'lucide-react'
-import { phoneHref, siteConfig, whatsappHref } from '../../data/siteConfig'
+import { phoneHref, siteConfig, whatsappHref, WHATSAPP_TEMPLATES } from '../../data/siteConfig'
 import { CourseEnquiryForm } from '../forms/CourseEnquiryForm'
 import { InstagramIcon, WhatsAppIcon } from '../ui/BrandIcons'
 
@@ -12,12 +12,12 @@ interface EnquirySectionProps {
 /** Course enquiry block (id="enquire"), used on the academy and course pages. */
 export function EnquirySection({
   presetCourse,
-  title = 'Enquire about training',
-  intro = 'Tell us which course you’re interested in. We’ll reply with current details on content, batches and fees.',
+  title = 'Register Interest in Training',
+  intro = 'Tell us which course you’re interested in. We’ll reply on WhatsApp with current syllabus, schedule and batch openings.',
 }: EnquirySectionProps) {
   const { contact, social } = siteConfig
   const tel = phoneHref()
-  const whatsapp = whatsappHref('Hello ANICX MEDIA, I would like to know more about your animation courses.')
+  const whatsapp = whatsappHref(WHATSAPP_TEMPLATES.training)
 
   return (
     <section id="enquire" aria-labelledby="enquire-title" className="section-y bg-mist">

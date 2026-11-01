@@ -32,7 +32,11 @@ const types = {
 
 async function resolveFile(pathname) {
   const safe = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '')
-  const candidates = [join(dist, safe), join(dist, safe, 'index.html')]
+  const candidates = [
+    join(dist, safe),
+    join(dist, `${safe}.html`),
+    join(dist, safe, 'index.html'),
+  ]
   for (const file of candidates) {
     if (!file.startsWith(dist)) continue
     try {
