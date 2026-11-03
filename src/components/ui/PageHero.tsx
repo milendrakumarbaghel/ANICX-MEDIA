@@ -19,8 +19,7 @@ export function PageHero({ eyebrow, title, intro, actions, aside, className, chi
 
   return (
     <section ref={ref} className={cn('shell pb-14 pt-12 md:pb-20 md:pt-20', className)}>
-      <p className="eyebrow flex items-center gap-2.5" data-intro>
-        <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+      <p className="eyebrow" data-intro>
         {eyebrow}
       </p>
       <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:items-end">

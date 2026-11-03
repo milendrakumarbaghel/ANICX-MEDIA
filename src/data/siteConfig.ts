@@ -37,7 +37,7 @@ export const siteConfig = {
   /**
    * Canonical site URL without trailing slash.
    */
-  url: (import.meta.env.VITE_SITE_URL ?? 'https://anicx-media.vercel.app').replace(/\/$/, ''),
+  url: (import.meta.env.VITE_SITE_URL || 'https://anicx-media.vercel.app').replace(/\/$/, ''),
 
   logo: {
     src: null as string | null,

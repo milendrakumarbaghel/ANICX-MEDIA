@@ -56,7 +56,6 @@ export function ContactCta({
         {/* Subtle decorative rings */}
         <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[34rem] w-[34rem] rounded-full border border-paper/10 md:-right-24" />
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 -z-10 h-[22rem] w-[22rem] rounded-full border border-accent/40 md:right-0" />
-        <div aria-hidden="true" className="pointer-events-none absolute right-24 top-24 -z-10 h-3 w-3 rounded-full bg-accent md:right-40 md:top-32" />
 
         <p className="eyebrow mb-6 text-accent" data-reveal>
           {siteConfig.name} · {locationLabel}

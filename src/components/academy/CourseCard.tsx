@@ -40,7 +40,6 @@ export function CourseCover({ course, index = 0, className }: { course: Course; 
       <span className="font-display text-[clamp(3.5rem,2.5rem+4vw,6rem)] font-medium leading-none tracking-[-0.05em] transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:-translate-y-1 group-hover:scale-[1.03]">
         {course.category.split(' ')[0]}
       </span>
-      <span className="absolute right-6 top-6 h-2.5 w-2.5 rounded-full bg-accent" />
       <span className="absolute -bottom-16 -right-16 h-48 w-48 rounded-full border border-current opacity-15" />
     </div>
   )

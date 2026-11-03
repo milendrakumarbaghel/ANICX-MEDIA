@@ -29,8 +29,7 @@ export function SectionHeading({
   return (
     <header className={cn('flex flex-col gap-6', align === 'center' && 'items-center text-center', className)}>
       {eyebrow && (
-        <p className="eyebrow flex items-center gap-2.5" data-reveal>
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+        <p className="eyebrow" data-reveal>
           {eyebrow}
         </p>
       )}

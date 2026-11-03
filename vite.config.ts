@@ -2,14 +2,20 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 
-// Netlify exposes the site's primary URL as `URL` during builds. Use it as the
-// canonical site URL unless VITE_SITE_URL is set explicitly (e.g. a custom domain).
-process.env.VITE_SITE_URL ??= process.env.URL ?? ''
+// Netlify exposes the site's primary URL as `URL` and Vercel as
+// `VERCEL_PROJECT_PRODUCTION_URL` (no scheme). Use them as the canonical site URL
+// unless VITE_SITE_URL is set explicitly (e.g. a custom domain).
+const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+process.env.VITE_SITE_URL ||= process.env.URL || (vercelUrl ? `https://${vercelUrl}` : '')
 
 // Shared UI code is bundled into one "app" chunk. Anything that pulls in the
 // form libraries stays separate so pages without forms never download them.
+// Every component that imports a form must be listed here too: if the "app"
+// chunk imports a form chunk that imports "app" back, the circular import
+// crashes the app on boot and nothing becomes interactive.
 const SHARED_APP = /[\\/]src[\\/](components|animations|lib|data|hooks)[\\/]/
-const FORM_MODULES = /[\\/]src[\\/](components[\\/]forms|lib[\\/]forms|components[\\/]academy[\\/]EnquirySection)/
+const FORM_MODULES =
+  /[\\/]src[\\/](components[\\/]forms|lib[\\/]forms|components[\\/]academy[\\/]EnquirySection|components[\\/]home[\\/]AcademySection|components[\\/]services[\\/]ServiceDetailLayout)/
 const isSharedAppModule = (id: string) => SHARED_APP.test(id) && !FORM_MODULES.test(id)
 
 // https://vite.dev/config/

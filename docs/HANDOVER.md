@@ -35,13 +35,14 @@ Top Navigation items:
 ## 3. Homepage Section Order (Verified)
 
 1. **Hero:** "Stories in Motion. Businesses Online." with actions "Discuss Your Project", "Explore Our Work", and "Want to learn? Explore ANICX Academy."
-2. **Showreel:** Actual ANICX animation production work, strong poster image, click-to-play with audio on user interaction (no auto sound).
-3. **Three Service Cards:** Animation Studio, Websites & Content, ANICX Academy, plus capacity notice for Social Media & Paid Ads ("Enquire About Availability").
-4. **Selected Client Work:** Hotel website (`hotelshantione.in`) with "Visit Website" & "Enquire About a Similar Website", representative animation contributions, and responsive grid of 5 animation client channels with "View Channel".
-5. **Original Series:** Panga Toonz (family comedy) and Raaz Wali Raat (2D Hindi horror with 18+ advisory), separate from client work.
-6. **How We Work:** 5 steps (Discuss → Plan & Quote → Create → Review → Deliver).
-7. **Academy Preview:** Course cards and upcoming-batch interest form.
-8. **Final Contact Section:** "Have a project in mind? Let’s discuss it." with direct WhatsApp, Direct Call, and Google Maps location actions.
+2. **Three Service Cards:** Animation Studio, Websites & Content, ANICX Academy, plus capacity notice for Social Media & Paid Ads ("Enquire About Availability").
+3. **Selected Client Work:** Hotel website (`hotelshantione.in`) with "Visit Website" & "Enquire About a Similar Website", representative animation contributions, and responsive grid of 5 animation client channels with "View Channel".
+4. **Original Series:** Panga Toonz (family comedy) and Raaz Wali Raat (2D Hindi horror with 18+ advisory), separate from client work.
+5. **How We Work:** 5 steps (Discuss → Plan & Quote → Create → Review → Deliver).
+6. **Academy Preview:** Course cards and upcoming-batch interest form.
+7. **Final Contact Section:** "Have a project in mind? Let’s discuss it." with direct WhatsApp, Direct Call, and Google Maps location actions.
+
+The brief's showreel (a Makdaman poster directly under the hero) was removed at the owner's request; that work still appears under Selected Client Work.
 
 ---
 

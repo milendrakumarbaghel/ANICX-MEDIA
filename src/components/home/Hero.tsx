@@ -12,8 +12,7 @@ export function Hero() {
   return (
     <section ref={ref} aria-labelledby="hero-title" data-intro-root className="relative pb-8 pt-6 sm:pb-12 sm:pt-10 md:pb-16 md:pt-14">
       <div className="shell">
-        <p className="eyebrow flex items-center gap-2.5" data-intro>
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+        <p className="eyebrow" data-intro>
           ANICX MEDIA · Animation &amp; Web Studio · Seoni (M.P.)
         </p>
 
@@ -21,12 +20,12 @@ export function Hero() {
           <h1 id="hero-title" className="text-hero font-medium lg:col-span-8" data-intro>
             <span className="line-mask">
               <span data-line className="block">
-                Stories in Motion<span className="text-accent">.</span>
+                Stories in Motion
               </span>
             </span>
             <span className="line-mask">
               <span data-line className="block">
-                Businesses Online<span className="text-accent">.</span>
+                Businesses Online
               </span>
             </span>
           </h1>
