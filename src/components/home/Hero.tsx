@@ -12,11 +12,7 @@ export function Hero() {
   return (
     <section ref={ref} aria-labelledby="hero-title" data-intro-root className="relative pb-8 pt-6 sm:pb-12 sm:pt-10 md:pb-16 md:pt-14">
       <div className="shell">
-        <p className="eyebrow" data-intro>
-          ANICX MEDIA · Animation &amp; Web Studio · Seoni (M.P.)
-        </p>
-
-        <div className="mt-4 grid gap-6 sm:mt-6 lg:mt-8 lg:grid-cols-12 lg:items-end lg:gap-8">
+        <div className="grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-8">
           <h1 id="hero-title" className="text-hero font-medium lg:col-span-8" data-intro>
             <span className="line-mask">
               <span data-line className="block">
