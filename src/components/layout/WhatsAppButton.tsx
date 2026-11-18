@@ -10,7 +10,7 @@ const FORM_FIELDS = 'input, textarea, select'
  * Floating WhatsApp shortcut on all public pages.
  *
  * Requirements:
- * - Base destination: https://wa.me/918770338294 with encoded text query
+ * - Base destination: https://wa.me/917648984129 with encoded text query
  * - Accessible label: "Chat with ANICX Media on WhatsApp"
  * - Does not overlap mobile navigation, consent controls, forms, or footer content.
  */

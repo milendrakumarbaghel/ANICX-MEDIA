@@ -1,4 +1,4 @@
-import { GraduationCap, MapPin, Phone, Sparkles } from 'lucide-react'
+import { GraduationCap, Mail, MapPin, Phone, Sparkles } from 'lucide-react'
 import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useSearchParams } from 'react-router'
 import { useScrollReveal } from '../animations/useScrollReveal'
@@ -134,6 +134,17 @@ export default function ContactPage() {
             sublabel="Call our Seoni studio directly"
             href={tel}
           />
+
+          {/* Email */}
+          {contact.email && (
+            <ContactCard
+              icon={<Mail size={20} />}
+              label="Official Email"
+              value={contact.email}
+              sublabel="Write to us at any time"
+              href={`mailto:${contact.email}`}
+            />
+          )}
 
           {/* Action 3: View Location on Google Maps */}
           <ContactCard

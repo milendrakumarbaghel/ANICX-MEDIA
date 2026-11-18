@@ -3,12 +3,13 @@
  *
  * Grounded strictly in owner-confirmed business inputs:
  * - Brand: ANICX MEDIA
- * - Phone / WhatsApp: +91 87703 38294
- * - WhatsApp URL: https://wa.me/918770338294
+ * - Phone / WhatsApp: +91 76489 84129
+ * - WhatsApp URL: https://wa.me/917648984129
+ * - Email: anicxmedia@gmail.com
  * - Location: Seoni, Madhya Pradesh - 480661
  * - Google Maps: https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA
  *
- * Optional unsupplied fields (street address, email, hours) are omitted.
+ * Optional unsupplied fields (street address, hours) are omitted.
  */
 
 export interface SocialLink {
@@ -47,13 +48,13 @@ export const siteConfig = {
   },
 
   contact: {
-    email: null as string | null,
-    phone: '+91 87703 38294',
-    whatsapp: '918770338294',
-    whatsappRaw: '+91 87703 38294',
+    email: 'anicxmedia@gmail.com' as string | null,
+    phone: '+91 76489 84129',
+    whatsapp: '917648984129',
+    whatsappRaw: '+91 76489 84129',
     whatsappMessage: WHATSAPP_TEMPLATES.general,
     mapsUrl: 'https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA',
-    tel: 'tel:+918770338294',
+    tel: 'tel:+917648984129',
   },
 
   address: {
@@ -123,7 +124,7 @@ export const siteConfig = {
 export type SiteConfig = typeof siteConfig
 
 /**
- * Builds a direct WhatsApp link to 918770338294 with encoded prefilled message.
+ * Builds a direct WhatsApp link to the configured WhatsApp number with encoded prefilled message.
  */
 export function whatsappHref(message: string = siteConfig.contact.whatsappMessage): string {
   const digits = siteConfig.contact.whatsapp.replace(/\D/g, '')

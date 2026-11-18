@@ -7,14 +7,15 @@ All business facts are centralized in [`src/data/siteConfig.ts`](file:///Users/m
 | Item | Value |
 | --- | --- |
 | **Brand** | ANICX MEDIA |
-| **Phone** | `+91 87703 38294` (`tel:+918770338294`) |
-| **WhatsApp Number** | `918770338294` (`https://wa.me/918770338294`) |
+| **Phone** | `+91 76489 84129` (`tel:+917648984129`) |
+| **WhatsApp Number** | `917648984129` (`https://wa.me/917648984129`) |
+| **Email** | `anicxmedia@gmail.com` (`mailto:anicxmedia@gmail.com`) |
 | **Location** | Seoni, Madhya Pradesh - 480661 |
 | **Google Maps Location** | `https://maps.app.goo.gl/Y4XvpPPn2MGJbhAeA` |
 | **Instagram** | `https://www.instagram.com/anicx_media/` (`@anicx_media`) |
 | **Live Domain / Target** | `https://anicx-media.vercel.app/` |
 
-*Note: Unsupplied optional fields (street address text, business email, and office hours) are omitted across the site without placeholders per owner instructions.*
+*Note: Unsupplied optional fields (street address text and office hours) are omitted across the site without placeholders per owner instructions.*
 
 ---
 

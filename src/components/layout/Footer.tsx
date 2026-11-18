@@ -1,4 +1,4 @@
-import { MapPin, Phone } from 'lucide-react'
+import { Mail, MapPin, Phone } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import { mainNav } from '../../app/navigation'
@@ -117,6 +117,13 @@ export function Footer() {
                   <WhatsAppIcon size={16} /> WhatsApp ({contact.phone})
                 </ExternalLink>
               </li>
+              {contact.email && (
+                <li>
+                  <a href={`mailto:${contact.email}`} className={`${linkClass} gap-2 break-all`}>
+                    <Mail size={16} aria-hidden="true" /> {contact.email}
+                  </a>
+                </li>
+              )}
               <li>
                 <ExternalLink href={social.instagram.url} className={`${linkClass} gap-2`}>
                   <InstagramIcon size={16} /> Instagram
