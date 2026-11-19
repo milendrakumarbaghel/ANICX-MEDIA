@@ -23,14 +23,25 @@ After any edit, run `npm run check`, or open a pull request and check the Netlif
 | `contact.phone` | e.g. `'+91 98765 43210'` | Clickable phone link |
 | `contact.whatsapp` | Digits with country code, e.g. `'919876543210'` | Turns on the floating WhatsApp button and WhatsApp links |
 | `address.street`, `address.postalCode` | Only if you want them public | Added to Google structured data |
-| `logo.src` | Path of the logo in `public/`, e.g. `'/brand/anicx-logo.svg'` | Replaces the text wordmark |
+| `logo.src` | Square raster logo in `public/`, e.g. `'/brand/anicx-icon-512.png'` | Logo in search-engine structured data |
 | `social` | Instagram and YouTube links | Footer, menu and structured data |
 | `brand.colors.accent` | Hex colour, e.g. `'#C7A15A'` | Gold accent dots and lines across the site. Pick `accentInk` as a darker shade that is readable on white. |
 | `forms.budgetRanges`, `forms.timelines` | Dropdown options for the project form | Project enquiry form |
 
 Leave a field as `null` until you have the real value. Empty fields are simply hidden; nothing fake is shown.
 
-**Logo:** put the file (SVG preferred, or a transparent PNG/WebP) in `public/brand/`, set `logo.src`, and adjust `logo.width`/`logo.height` to its proportions. Also replace `public/favicon.svg`.
+**Logo:** the full brand kit (every colour version, SVG + PNG) is in `docs/brand/`. See `docs/brand/anicx-logo-sheet.png` for an overview.
+
+| Folder | Use |
+| --- | --- |
+| `full-color-dark/` | Primary logo (white + blue gradient) on dark backgrounds |
+| `full-color-light/` | Primary logo (navy + blue gradient) on light backgrounds |
+| `flat-dark/`, `flat-light/` | No gradient, for print, embroidery and merch |
+| `mono-black/`, `mono-white/` | Single colour, for stamps, watermarks and photo overlays |
+| `gold-light/`, `gold-dark/` | Uses the website's gold accent |
+| `icons/` | Square app/social icons (navy, blue, white, black) |
+
+Each folder has `anicx-logo` (monogram + name) and `anicx-mark` (AX monogram only). The website header and footer draw the logo inline from `src/components/ui/logoPaths.ts`. If the logo changes, also replace `public/favicon.svg`, `public/apple-touch-icon.png` and `public/brand/anicx-icon-512.png`.
 
 **Social sharing image:** replace `public/media/og-default.jpg` with a 1200×630 JPG.
 

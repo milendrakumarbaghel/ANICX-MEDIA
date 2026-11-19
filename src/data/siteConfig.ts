@@ -40,11 +40,15 @@ export const siteConfig = {
    */
   url: (import.meta.env.VITE_SITE_URL || 'https://anicx-media.vercel.app').replace(/\/$/, ''),
 
+  /**
+   * `src` is the raster logo used in structured data (Google needs PNG/JPG, min 112px).
+   * The on-page logo is rendered inline from src/components/ui/logoPaths.ts.
+   */
   logo: {
-    src: null as string | null,
+    src: '/brand/anicx-icon-512.png' as string | null,
     alt: 'ANICX MEDIA',
-    width: 140,
-    height: 32,
+    width: 512,
+    height: 512,
   },
 
   contact: {
